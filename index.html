@@ -29,13 +29,10 @@
         input-model="obj"
         output-model="selected[k]"
         ></wd-select>
-      <div class="form-group">
+      <div class="form-group" ng-hide="loading">
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </form>
-  </div>
-  <div class="row">
-    {{ selected }}
   </div>
 </div>
 </body>
