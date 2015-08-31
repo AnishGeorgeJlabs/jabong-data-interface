@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="Jabong">
+<head>
+  <meta charset='utf-8'>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+
+  <script src="lib/isteven-angular-multiselect/isteven-multi-select.js"></script>
+  <link rel="stylesheet" href="lib/isteven-angular-multiselect/isteven-multi-select.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="js/app.js"></script>
+</head>
+<body ng-controller="MainCtrl">
+<div class="container">
+  <div class="row">
+    <div class="page-header">
+      <h1>Jabong data</h1><small ng-if="loading">Loading your data</small>
+    </div>
+  </div>
+  <div class="row">
+    <form class="form-horizontal" ng-submit="submit()">
+      <wd-select
+        ng-repeat="(k, obj) in data"
+        input-model="obj"
+        output-model="selected[k]"
+        ></wd-select>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+  <div class="row">
+    {{ selected }}
+  </div>
+</div>
+</body>
