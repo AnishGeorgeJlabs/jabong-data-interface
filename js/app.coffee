@@ -64,9 +64,6 @@ angular.module('Jabong', ['isteven-multi-select'])
 
   $scope.submit = () ->
     $log.debug "About to submit: "+JSON.stringify($scope.selected)
-    ###
     $http.post 'http://45.55.72.208/misc/jabong/post', $scope.selected
     .success (data) ->
       $log.info "Got data: "+JSON.stringify(data)
-
-    ###
