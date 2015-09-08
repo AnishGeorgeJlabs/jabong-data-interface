@@ -53,6 +53,7 @@ angular.module('Jabong', ['isteven-multi-select'])
     percent: 0
   }
   $scope.loading = true
+  $scope.submitting = false
 
   $http.get 'http://45.55.72.208/misc/jabong/form'
   .success (data) ->
@@ -63,7 +64,12 @@ angular.module('Jabong', ['isteven-multi-select'])
 
 
   $scope.submit = () ->
+    $scope.submitting = true
     $log.debug "About to submit: "+JSON.stringify($scope.selected)
     $http.post 'http://45.55.72.208/misc/jabong/post', $scope.selected
     .success (data) ->
-      $log.info "Got data: "+JSON.stringify(data)
+      $scope.submitting = false
+      if data.success
+        alert "Successful submission"
+      else
+        alert "Some problem occurred while submitting"

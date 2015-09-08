@@ -60,6 +60,7 @@
       percent: 0
     };
     $scope.loading = true;
+    $scope.submitting = false;
     $http.get('http://45.55.72.208/misc/jabong/form').success(function(data) {
       $scope.loading = false;
       return _.each(data, function(obj) {
@@ -67,9 +68,15 @@
       });
     });
     return $scope.submit = function() {
+      $scope.submitting = true;
       $log.debug("About to submit: " + JSON.stringify($scope.selected));
       return $http.post('http://45.55.72.208/misc/jabong/post', $scope.selected).success(function(data) {
-        return $log.info("Got data: " + JSON.stringify(data));
+        $scope.submitting = false;
+        if (data.success) {
+          return alert("Successful submission");
+        } else {
+          return alert("Some problem occurred while submitting");
+        }
       });
     };
   });
