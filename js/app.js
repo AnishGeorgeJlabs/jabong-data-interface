@@ -56,7 +56,9 @@
     };
   }).controller('MainCtrl', function($scope, $log, $http) {
     $scope.data = {};
-    $scope.selected = {};
+    $scope.selected = {
+      percent: 0
+    };
     $scope.loading = true;
     $http.get('http://45.55.72.208/misc/jabong/form').success(function(data) {
       $scope.loading = false;
@@ -65,9 +67,13 @@
       });
     });
     return $scope.submit = function() {
-      return $http.post('http://45.55.72.208/misc/jabong/post', $scope.selected).success(function(data) {
-        return $log.info("Got data: " + JSON.stringify(data));
-      });
+      return $log.debug("About to submit: " + JSON.stringify($scope.selected));
+
+      /*
+      $http.post 'http://45.55.72.208/misc/jabong/post', $scope.selected
+      .success (data) ->
+        $log.info "Got data: "+JSON.stringify(data)
+       */
     };
   });
 

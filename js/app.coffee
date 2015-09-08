@@ -49,7 +49,9 @@ angular.module('Jabong', ['isteven-multi-select'])
 .controller 'MainCtrl', ($scope, $log, $http) ->
 
   $scope.data = {}
-  $scope.selected = {}
+  $scope.selected = {
+    percent: 0
+  }
   $scope.loading = true
 
   $http.get 'http://45.55.72.208/misc/jabong/form'
@@ -61,6 +63,10 @@ angular.module('Jabong', ['isteven-multi-select'])
 
 
   $scope.submit = () ->
+    $log.debug "About to submit: "+JSON.stringify($scope.selected)
+    ###
     $http.post 'http://45.55.72.208/misc/jabong/post', $scope.selected
     .success (data) ->
       $log.info "Got data: "+JSON.stringify(data)
+
+    ###
