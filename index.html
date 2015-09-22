@@ -24,6 +24,7 @@
   </div>
   <div class="row">
     <form class="form-horizontal" ng-submit="submit()">
+      <h2 ng-hide="loading">Selection</h2>
       <wd-select
         ng-repeat="(k, obj) in data"
         input-model="obj"
@@ -35,6 +36,12 @@
           <input type="number" class="form-control" min="0" max="100" ng-model="selected.percent">
         </div>
       </div>
+      <h2 ng-hide="loading">Exclusion</h2>
+      <wd-select
+          ng-repeat="(k, obj) in edata"
+          input-model="obj"
+          output-model="excluded[k]"
+          ></wd-select>
       <div class="form-group" ng-hide="loading">
         <div class="col-sm-offset-4 col-xs-offset-3">
           <button type="submit" class="btn btn-primary" ng-disabled="submitting">Submit</button>

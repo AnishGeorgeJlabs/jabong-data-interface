@@ -49,9 +49,11 @@ angular.module('Jabong', ['isteven-multi-select'])
 .controller 'MainCtrl', ($scope, $log, $http) ->
 
   $scope.data = {}
+  $scope.edata = {}
   $scope.selected = {
     percent: 0
   }
+  $scope.excluded = {}
   $scope.loading = true
   $scope.submitting = false
 
@@ -60,13 +62,17 @@ angular.module('Jabong', ['isteven-multi-select'])
     $scope.loading = false
     _.each(data, (obj) ->
       $scope.data[obj.name] = obj
+      $scope.edata[obj.name] = obj
     )
 
 
   $scope.submit = () ->
     $scope.submitting = true
     $log.debug "About to submit: "+JSON.stringify($scope.selected)
-    $http.post 'http://45.55.72.208/misc/jabong/post', $scope.selected
+    $http.post 'http://45.55.72.208/misc/jabong/post', {
+     selected: $scope.selected
+     excluded: $scope.excluded
+    }
     .success (data) ->
       $scope.submitting = false
       if data.success

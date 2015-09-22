@@ -56,21 +56,27 @@
     };
   }).controller('MainCtrl', function($scope, $log, $http) {
     $scope.data = {};
+    $scope.edata = {};
     $scope.selected = {
       percent: 0
     };
+    $scope.excluded = {};
     $scope.loading = true;
     $scope.submitting = false;
     $http.get('http://45.55.72.208/misc/jabong/form').success(function(data) {
       $scope.loading = false;
       return _.each(data, function(obj) {
-        return $scope.data[obj.name] = obj;
+        $scope.data[obj.name] = obj;
+        return $scope.edata[obj.name] = obj;
       });
     });
     return $scope.submit = function() {
       $scope.submitting = true;
       $log.debug("About to submit: " + JSON.stringify($scope.selected));
-      return $http.post('http://45.55.72.208/misc/jabong/post', $scope.selected).success(function(data) {
+      return $http.post('http://45.55.72.208/misc/jabong/post', {
+        selected: $scope.selected,
+        excluded: $scope.excluded
+      }).success(function(data) {
         $scope.submitting = false;
         if (data.success) {
           return alert("Successful submission");
